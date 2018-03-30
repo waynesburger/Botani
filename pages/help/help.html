@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    </ion-buttons>
+    <ion-title class = "toolbar-background">
+        <span text-color = "white-text"> Info </span>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+      <ion-label></ion-label>
+      <button ion-item *ngFor="let item of items" (click) = "goToPage(item)">
+        {{item}}
+      </button>
+  </ion-list>
+
+</ion-content>
+
+
+<ion-footer>
+
+  <ion-toolbar color="secondary">
+    <ion-searchbar placeholder="Search" (ionInput)="filterItems($event)"></ion-searchbar>
+  </ion-toolbar>
+
+</ion-footer>
