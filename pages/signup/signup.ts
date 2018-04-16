@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, MenuController } from 'ionic-angular';
 import { Auth, Logger } from 'aws-amplify';
 
 import { LoginPage } from '../login/login';
@@ -35,8 +35,11 @@ export class SignupPage {
    * @param loadingCtrl 
    */
   constructor(public navCtrl: NavController,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController,
+              public menuCtrl: MenuController) {
    this.userDetails = new UserDetails();
+   this.menuCtrl.enable(false);
+   console.log("loaded constructor");
   }
 
   /**
