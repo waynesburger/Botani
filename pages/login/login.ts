@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, MenuController } from 'ionic-angular';
 import { Auth, Logger } from 'aws-amplify';
 
 import { TabsPage } from '../tabs/tabs';
@@ -36,9 +36,11 @@ export class LoginPage {
    * @param saveLogIn 
    */
   constructor(public navCtrl: NavController,
-              public loadingCtrl: LoadingController, saveLogIn : LoginInfoProvider) {
+              public loadingCtrl: LoadingController, saveLogIn : LoginInfoProvider,
+              public menuCtrl: MenuController) {
     this.loginDetails = new LoginDetails(); 
     this.saveLogIn = saveLogIn
+    this.menuCtrl.enable(false);
   }
 
   /**
