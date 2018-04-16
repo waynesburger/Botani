@@ -7,7 +7,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
-declare var google;
+declare let google: any;
 
 @IonicPage()
 
@@ -28,6 +28,8 @@ export class BotaniMap {
     locWatcher: any;      //variable that holds the promise that resolves the users location
     tree_list: Tree[];
     saplings: sapling[];
+    evergreenIcon: any;
+    deciduousIcon:any;
 
     //initial setup-------------------------------------------------------------------------------------------------
     /**
@@ -54,7 +56,19 @@ export class BotaniMap {
                 long: 0
             }
 
-
+        this.evergreenIcon = {
+            url: 'assets/icon/evergreen.png',
+            size: new google.maps.Size(36, 43),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(20, 43)
+        }
+    
+        this.deciduousIcon = {
+            url: 'assets/icon/deciduous.png',
+            size: new google.maps.Size(32, 40),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(16, 40)
+        }
     }
 
     /**
@@ -192,11 +206,24 @@ export class BotaniMap {
 
         //here is where the map is initialized, if the user's geolocation is defined and within mapBounds, 
         //then it is the map's center, otherwise the default center is used
+        let styling = [
+            {
+            featureType: "poi", //points of interest
+            elementType: "labels",
+            stylers: [
+                    { visibility: "off"}
+                ]
+            }
+        ];
+
         let options = {
             center: (userLoc !== undefined && this.mapBounds.contains(this.userLoc)) ? this.userLoc : this.areaCenter,
-            zoom: 17,
+            
+            minZoom: 14,
+            zoom: 14,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            disableDefaultUI: true
+            disableDefaultUI: true,
+            styles: styling
         }
 
         this.map = new google.maps.Map(document.getElementById("map"), options);
@@ -205,37 +232,20 @@ export class BotaniMap {
 
     }
 
-    /**
-     * updates the marks of the trees. Requires the png images to be in the assets folder
-     * @param trees 
-     */
-    updateTreeMarks(trees) {
+    updateTreeMarks(trees){
 
         //ONLY WORKS IF evergreen.png AND deciduous.png ARE IN THE ICON FOLDER IN ASSETS
-        var everImage = {
-            url: 'assets/icon/evergreen.png',
-            size: new google.maps.Size(36, 43),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(20, 43)
-        }
 
-        var decidImage = {
-            url: 'assets/icon/deciduous.png',
-            size: new google.maps.Size(32, 40),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(16, 40)
-        }
-
-        for (let tree of trees) {
-
-            if (!tree.hidden) {
+        for(let tree of trees){
+        
+            if(!tree.hidden){
                 var loc = new google.maps.LatLng(tree.lat, tree.long);
                 var treeMark = new google.maps.Marker({
                     position: loc,
                     map: this.map,
                     icon: (tree.collectData().pinecone)
-                        ? everImage
-                        : decidImage
+                          ? this.evergreenIcon
+                          : this.deciduousIcon
                 });
             }
         }
@@ -268,7 +278,7 @@ export class BotaniMap {
         marker accordingly
     */
     createLocWatcher() {
-        this.locWatcher = this.geolocation.watchPosition({ enableHighAccuracy: true })
+        this.locWatcher = this.geolocation.watchPosition()//{ enableHighAccuracy: true })
             .filter((p) => p.coords !== undefined)
             .subscribe(position => {
                 console.log("init user loc");
@@ -289,35 +299,39 @@ export class BotaniMap {
         here is where the the app checks if it needs to reveal a 
         nearby hidden tree
     */
-    revealHidden() {
+   revealHidden(){
+   
+    let farProxim = 60;
 
-        let farProxim = 60;
+    let nearProxim = 6;
 
-        let nearProxim = 20;
+    let closest = this.findTree(true);
 
-        let closest = this.findTree(true);
-
-        if (closest !== undefined) {
+        if(closest !== undefined){
             let proxim = this.inProximity(closest);
-            if (proxim <= nearProxim) {
+            if(proxim <= nearProxim){
                 this.alertMessage(1);
                 var loc = new google.maps.LatLng(this.tree_list[closest.ind].lat,
-                    this.tree_list[closest.ind].long);
+                                                this.tree_list[closest.ind].long);
                 var treeMark = new google.maps.Marker({
                     position: loc,
-                    //title: trees.name,
-                    map: this.map
-                    //icon: image
+                    map: this.map,
+                    icon: (this.tree_list[closest.ind].collectData().pinecone)
+                        ? this.evergreenIcon
+                        : this.deciduousIcon
+                    
                 });
                 //make the hidden value in the database false
                 //notify everyone else that a tree has been found
-            } else if (proxim <= farProxim) {
+            }
+            else if(proxim <= farProxim){
                 this.hintToast({
                     pro: proxim,
                     dir: closest.direct
                 })
             }
-        } else {
+        }
+        else{
             this.hintToast(undefined);
         }
 
@@ -330,7 +344,7 @@ export class BotaniMap {
     hintToast(hints) {
         let toastMessg = (hints === undefined)
             ? 'No hidden trees anywhere near you right now'
-            : 'The closest hidden tree is ' + hints.pro + 'feet away to the ' + hints.dir + '!!';
+            : 'The closest hidden tree is ' + hints.pro + 'feet away to the ' + hints.dir + '!';
 
         let toast = this.toastCtrl.create({
             message: toastMessg,
