@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 import { UserFactory, user } from '../../providers/userfactory';
 
 /**
@@ -21,11 +21,12 @@ export class Leaderboard {
  * @param navCtrl 
  * @param AllUsers 
  */
-  constructor(public navCtrl: NavController, private AllUsers: user[]) 
+  constructor(public navCtrl: NavController, private AllUsers: user[], public menuCtrl: MenuController) 
   {
     this.allusers = AllUsers;
     console.log(this.allusers)
     this.loadUsers();
+    this.menuCtrl.enable(true);
   }
   
   /**
