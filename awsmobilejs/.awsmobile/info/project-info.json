@@ -1,0 +1,23 @@
+{
+	"ProjectName": "botaniClash",
+	"ProjectPath": "/Users/lukelee/botaniClash",
+	"SourceDir": "src",
+	"DistributionDir": "build",
+	"BuildCommand": "npm run-script build",
+	"StartCommand": "ionic serve",
+	"InitializationTime": "2018-03-02-11-25-23",
+	"LastConfigurationTime": "2018-03-02-11-25-56",
+	"LastNPMInstallTime": "",
+	"FrontendLastBuildTime": "",
+	"LastPublishTime": "",
+	"BackendFormat": "yml",
+	"BackendLastSyncTime": "2018-03-02-17-00-20",
+	"BackendLastBuildTime": "",
+	"BackendLastPushTime": "",
+	"BackendLastPushSuccessful": false,
+	"BackendProjectID": "df457187-1e4f-11e8-a529-0376e3239e30",
+	"BackendProjectName": "botaniClash",
+	"BackendProjectConsoleUrl": "https://console.aws.amazon.com/mobilehub/home#/df457187-1e4f-11e8-a529-0376e3239e30/build",
+	"BackendProjectCreationTime": "2018-03-02T19:28:23.305Z",
+	"BackendProjectLastUpdatedTime": "2018-03-03T00:59:00.082Z"
+}

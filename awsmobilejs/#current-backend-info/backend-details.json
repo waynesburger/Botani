@@ -1,0 +1,133 @@
+{
+	"name": "botaniClash",
+	"projectId": "df457187-1e4f-11e8-a529-0376e3239e30",
+	"region": "us-west-2",
+	"state": "NORMAL",
+	"createdDate": "2018-03-02T19:28:23.305Z",
+	"lastUpdatedDate": "2018-03-03T00:59:00.082Z",
+	"consoleUrl": "https://console.aws.amazon.com/mobilehub/home#/df457187-1e4f-11e8-a529-0376e3239e30/build",
+	"resources": [
+		{
+			"type": "AWS::Pinpoint::AnalyticsApplication",
+			"name": "botaniclash_MobileHub",
+			"arn": "a3f9da7a4457404dbceb85572c080bbf",
+			"feature": "analytics",
+			"attributes": {
+				"lastUpdateRequestID": "df4d87e2-1e4f-11e8-aba6-ad3a88e4a9c3"
+			}
+		},
+		{
+			"type": "AWS::IAM::Policy",
+			"name": "botaniclash_mobileanalytics_MOBILEHUB_1387081416",
+			"arn": null,
+			"feature": "analytics",
+			"attributes": {
+				"authType": "authenticated",
+				"lastUpdateRequestID": "1b77eef6-1e7d-11e8-b152-1fd80fbe7e34",
+				"role": "botaniclash_auth_MOBILEHUB_1387081416"
+			}
+		},
+		{
+			"type": "AWS::Cognito::IdentityPool",
+			"name": "botaniclash_MOBILEHUB_1387081416",
+			"arn": "us-west-2:ea5ef297-7924-4578-887e-1bca2aa39475",
+			"feature": "user-signin",
+			"attributes": {
+				"lastUpdateRequestID": "1b77eef6-1e7d-11e8-b152-1fd80fbe7e34",
+				"poolid": "us-west-2:ea5ef297-7924-4578-887e-1bca2aa39475",
+				"roleARNs": "arn:aws:iam::620724665730:role/botaniclash_auth_MOBILEHUB_1387081416"
+			}
+		},
+		{
+			"type": "AWS::IAM::Role",
+			"name": "botaniclash_smsverification_MOBILEHUB_1387081416",
+			"arn": "arn:aws:iam::620724665730:role/service-role/botaniclash_smsverification_MOBILEHUB_1387081416",
+			"feature": "user-signin",
+			"attributes": {
+				"lastUpdateRequestID": "081f3c0b-1e7d-11e8-b15c-e9096fc12449",
+				"user-pools-role-key": "user-pools-execution-role"
+			}
+		},
+		{
+			"type": "AWS::Cognito::UserPool",
+			"name": "botaniclash_userpool_MOBILEHUB_1387081416",
+			"arn": "us-west-2_yQpumrbTB",
+			"feature": "user-signin",
+			"attributes": {
+				"alias-attributes": "[\"preferred_username\",\"email\",\"phone_number\"]",
+				"lastUpdateRequestID": "081f3c0b-1e7d-11e8-b15c-e9096fc12449",
+				"mfa-configuration": "OPTIONAL",
+				"password-policy": "{\"minimumLength\":8,\"requireUppercase\":true,\"requireLowercase\":true,\"requireNumbers\":true,\"requireSymbols\":true}",
+				"region": "us-west-2",
+				"user-pools-client-id": "1lqol34cr4begrtakngn7cliej",
+				"user-pools-client-secret": "gp39vhkbtu0af4g101atmuiqi5gna5vn8m58amn5j66b5nijijg",
+				"user-pools-id": "us-west-2_yQpumrbTB",
+				"user-pools-web-client-id": "3gal82adn7hu9n6ko8jeqntcdv"
+			}
+		},
+		{
+			"type": "AWS::IAM::Role",
+			"name": "botaniclash_auth_MOBILEHUB_1387081416",
+			"arn": "arn:aws:iam::620724665730:role/botaniclash_auth_MOBILEHUB_1387081416",
+			"feature": "user-signin",
+			"attributes": {
+				"authType": "authenticated",
+				"lastUpdateRequestID": "1b77eef6-1e7d-11e8-b152-1fd80fbe7e34"
+			}
+		},
+		{
+			"type": "AWS::S3::Bucket",
+			"name": "botaniclash-hosting-mobilehub-1387081416",
+			"arn": null,
+			"feature": "hosting",
+			"attributes": {
+				"lastUpdateRequestID": "df4d87e2-1e4f-11e8-aba6-ad3a88e4a9c3",
+				"region": "us-west-2",
+				"s3-bucket-console-url": "https://s3.console.aws.amazon.com/s3/buckets/botaniclash-hosting-mobilehub-1387081416",
+				"s3-bucket-website-url": "https://s3.amazonaws.com/botaniclash-hosting-mobilehub-1387081416"
+			}
+		},
+		{
+			"type": "AWS::CloudFront::Distribution",
+			"name": "d2qeo4xq4zcls6.cloudfront.net",
+			"arn": null,
+			"feature": "hosting",
+			"attributes": {
+				"id": "E3IG9PAO6028Y1",
+				"lastUpdateRequestID": "df4d87e2-1e4f-11e8-aba6-ad3a88e4a9c3"
+			}
+		},
+		{
+			"type": "AWS::IAM::Policy",
+			"name": "botaniclash_hosting_MOBILEHUB_1387081416",
+			"arn": null,
+			"feature": "hosting",
+			"attributes": {
+				"authType": "authenticated",
+				"lastUpdateRequestID": "1b77eef6-1e7d-11e8-b152-1fd80fbe7e34",
+				"role": "botaniclash_auth_MOBILEHUB_1387081416"
+			}
+		},
+		{
+			"type": "AWS::S3::Bucket",
+			"name": "botaniclash-deployments-mobilehub-1387081416",
+			"arn": null,
+			"feature": "common",
+			"attributes": {
+				"region": "us-west-2",
+				"s3-bucket-console-url": "https://s3.console.aws.amazon.com/s3/buckets/botaniclash-deployments-mobilehub-1387081416"
+			}
+		},
+		{
+			"type": "AWS::CloudFormation::Stack",
+			"name": "Development",
+			"arn": null,
+			"feature": "cloud-api",
+			"attributes": {
+				"primary": "true",
+				"region": "us-west-2",
+				"stateSummary": "NOT_YET_DEPLOYED"
+			}
+		}
+	]
+}

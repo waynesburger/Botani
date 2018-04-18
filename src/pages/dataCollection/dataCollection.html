@@ -1,0 +1,461 @@
+<ion-header>
+    <ion-navbar>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      </ion-buttons>
+      <ion-title class = "toolbar-background">
+          <span text-color = "white-text"> Data Collection </span>
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+ 
+ 
+  <ion-content>
+
+      <div *ngIf = "showOpenPollenCones">
+        <ion-card>
+          <ion-card-header>
+              <button ion-button small (tap) = "getInfo($event,0,0)">
+                info
+              </button>
+          </ion-card-header>
+          <ion-card-content>
+              
+            <canvas #openPollenCones></canvas>
+            <ion-item>
+                <ion-range
+                [(ngModel)] = "openPollenConesValue"  min="0" max="100" step="5"
+                 snaps = "true" pin = "true" 
+                (ionChange) = "redrawBarGraph(0,openPollenConesValue)"
+                debounce="200" 
+                >
+                    <ion-label range-left>0</ion-label>
+                    <ion-label range-right>100</ion-label>
+              </ion-range>
+            </ion-item>
+            <p style = "text-align: center"> {{BarGraphSendValues[0]}} </p>
+          </ion-card-content>
+
+          <ion-card>
+            <h2 style = "text-align: center">How much pollen is released when gently shaken or blown into your palm or onto a dark surface?</h2>
+            <ion-list radio-group>
+                <ion-item>
+                    <ion-label>Little</ion-label>
+                    <ion-radio value="little" checked (ionSelect) = "setPollenConesRadio('little')"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Some</ion-label>
+                    <ion-radio value="some" (ionSelect) = "setPollenConesRadio('some')"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Lots</ion-label>
+                    <ion-radio value="lots" (ionSelect) = "setPollenConesRadio('lots')"></ion-radio>
+                </ion-item>
+            </ion-list>
+        </ion-card>
+
+        </ion-card>
+      </div>
+      
+      <div *ngIf = "showUnfoldingLeaves">
+          <ion-card>
+              <ion-card-header>
+                  <button ion-button small (tap) = "getInfo($event,0,1)">
+                    info
+                  </button>
+              </ion-card-header>
+            <ion-card-content>
+              <canvas #unfoldingLeaves></canvas>
+    
+              <ion-item>
+                  <ion-range 
+                  [(ngModel)] = "unfoldingLeavesValue"  min="0" max="100" step="5" snaps = "true" pin = "true" 
+                  (ionChange) = "redrawBarGraph(1,unfoldingLeavesValue)"
+                  debounce="200" 
+                  >
+                      <ion-label range-left>0</ion-label>
+                      <ion-label range-right>100</ion-label>
+                </ion-range>
+              </ion-item>
+              <p style = "text-align: center"> {{BarGraphSendValues[1]}} </p>
+            </ion-card-content>
+          </ion-card>
+        </div>
+    
+        <div *ngIf = "showFullSizedLeaves">
+          <ion-card>
+              <ion-card-header>
+                  <button ion-button small (tap) = "getInfo($event,0,2)">
+                    info
+                  </button>
+              </ion-card-header>
+            <ion-card-content>
+              <canvas #fullSizedLeaves></canvas>
+    
+              <ion-item>
+                  <ion-range 
+                  [(ngModel)] = "fullSizedLeavesValue"  min="0" max="100" step="5" snaps = "true" pin = "true" 
+                  (ionChange) = "redrawBarGraph(2,fullSizedLeavesValue)"
+                  debounce="200" 
+                  >
+                      <ion-label range-left>0</ion-label>
+                      <ion-label range-right>100</ion-label>
+                </ion-range>
+              </ion-item>
+              <p style = "text-align: center"> {{BarGraphSendValues[2]}} </p>
+            </ion-card-content>
+          </ion-card>
+        </div>
+    
+        <div *ngIf = "showColoredLeaves">
+          <ion-card>
+              <ion-card-header>
+                  <button ion-button small (tap) = "getInfo($event,0,3)">
+                    info
+                  </button>
+              </ion-card-header>
+            <ion-card-content>
+              <canvas #coloredLeaves></canvas>
+    
+              <ion-item>
+                  <ion-range 
+                  [(ngModel)] = "coloredLeavesValue"  min="0" max="100" step="5" snaps = "true" pin = "true" 
+                  (ionChange) = "redrawBarGraph(3,coloredLeavesValue)"
+                  debounce="200" 
+                  >
+                      <ion-label range-left>0</ion-label>
+                      <ion-label range-right>100</ion-label>
+                </ion-range>
+              </ion-item>
+              <p style = "text-align: center"> {{BarGraphSendValues[3]}} </p>
+            </ion-card-content>
+
+            <ion-card>
+                <h2 style = "text-align: center">One or more leaves are falling or have recently fallen from the plant.</h2>
+                <ion-list radio-group>
+
+                    <ion-item>
+                        <ion-label>True</ion-label>
+                        <ion-radio value = "true" checked (ionSelect) = "setColoredLeavesRadio('true')"></ion-radio>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>False</ion-label>
+                        <ion-radio value = "false" (ionSelect) = "setColoredLeavesRadio('false')"></ion-radio>
+                    </ion-item>
+
+                </ion-list>
+            </ion-card>
+
+          </ion-card>
+        </div>
+    
+        <div *ngIf = "showOpenedFlowers">
+          <ion-card>
+              <ion-card-header>
+                  <button ion-button small (tap) = "getInfo($event,0,4)">
+                    info
+                  </button>
+              </ion-card-header>
+            <ion-card-content>
+              <canvas #openedFlowers></canvas>
+    
+              <ion-item>
+                  <ion-range 
+                  [(ngModel)] = "openedFlowersValue"  min="0" max="100" step="5" snaps = "true" pin = "true" 
+                  (ionChange) = "redrawBarGraph(4,openedFlowersValue)"
+                  debounce="200" 
+                  >
+                      <ion-label range-left>0</ion-label>
+                      <ion-label range-right>100</ion-label>
+                </ion-range>
+              </ion-item>
+              <p style = "text-align: center"> {{BarGraphSendValues[4]}} </p>
+            </ion-card-content>
+          </ion-card>
+        </div>
+    
+        <div *ngIf = "showRipeFruits">
+          <ion-card>
+              <ion-card-header>
+                  <button ion-button small (tap) = "getInfo($event,0,5)">
+                    info
+                  </button>
+              </ion-card-header>
+            <ion-card-content>
+              <canvas #ripeFruits></canvas>
+    
+              <ion-item>
+                  <ion-range 
+                  [(ngModel)] = "ripeFruitsValue"  min="0" max="100" step="5" snaps = "true" pin = "true" 
+                  (ionChange) = "redrawBarGraph(5,ripeFruitsValue)"
+                  debounce="200" 
+                  >
+                      <ion-label range-left>0</ion-label>
+                      <ion-label range-right>100</ion-label>
+                </ion-range>
+              </ion-item>
+              <p style = "text-align: center"> {{BarGraphSendValues[5]}} </p>
+            </ion-card-content>
+          </ion-card>
+        </div>
+  
+        <div *ngIf = "showNumberOfBreakingNeedleBuds">
+            <ion-card>
+                <ion-card-header>
+                    <button ion-button small (tap) = "getInfo($event,1,0)">
+                      info
+                    </button>
+                </ion-card-header>
+              <ion-card-content>
+                <canvas #breakingNeedleBuds></canvas>
+  
+                <ion-item>
+                    
+                    <ion-range 
+                    [(ngModel)] = "breakingNeedleBudsValue" min = "0" max = "5" step = "1" snaps = "true"
+                    (ionChange) = "redrawLineGraph(0,breakingNeedleBudsValue)"
+                    debounce="200" 
+                    >
+
+                        <ion-label range-left>0</ion-label>
+                        <ion-label range-right>10,000</ion-label>
+                  </ion-range>
+                  
+                </ion-item>
+                <p style = "text-align: center"> {{LineGraphSendValues[0]}} </p>
+              </ion-card-content>
+            </ion-card>
+        </div>
+
+        <div *ngIf = "showNumberOfYoungNeedles">
+            <ion-card>
+                <ion-card-header>
+                    <button ion-button small (tap) = "getInfo($event,1,1)">
+                      info
+                    </button>
+                </ion-card-header>
+              <ion-card-content>
+                <canvas #youngNeedles></canvas>
+  
+                <ion-item>
+                    <ion-range 
+                    [(ngModel)] = "youngNeedlesValue" min = "0" max = "5" step = "1" snaps = "true"
+                    (ionChange) = "redrawLineGraph(1,youngNeedlesValue)"
+                    debounce="200" 
+                    >
+                        <ion-label range-left>0</ion-label>
+                        <ion-label range-right>10,000</ion-label>
+                  </ion-range>
+                </ion-item>
+                <p style = "text-align: center"> {{LineGraphSendValues[1]}} </p>
+              </ion-card-content>
+            </ion-card>
+        </div>
+
+        <div *ngIf = "showNumberOfFreshPollenCones">
+            <ion-card>
+                <ion-card-header>
+                    <button ion-button small (tap) = "getInfo($event,1,2)">
+                      info
+                    </button>
+                </ion-card-header>
+              <ion-card-content>
+                <canvas #freshPollenCones></canvas>
+  
+                <ion-item>
+                    <ion-range 
+                    [(ngModel)] = "freshPollenConesValue" min = "0" max = "5" step = "1" snaps = "true"
+                    (ionChange) = "redrawLineGraph(2,freshPollenConesValue)"
+                    debounce="200" 
+                    >
+                        <ion-label range-left>0</ion-label>
+                        <ion-label range-right>10,000</ion-label>
+                  </ion-range>
+                </ion-item>
+                <p style = "text-align: center"> {{LineGraphSendValues[2]}} </p>
+              </ion-card-content>
+            </ion-card>
+        </div>
+
+        <div *ngIf = "showNumberOfUnripeSeedCones">
+            <ion-card>
+                <ion-card-header>
+                    <button ion-button small (tap) = "getInfo($event,1,3)">
+                      info
+                    </button>
+                </ion-card-header>
+              <ion-card-content>
+                <canvas #unripeSeedCones></canvas>
+  
+                <ion-item>
+                    <ion-range 
+                    [(ngModel)] = "unripeSeedConesValue" min = "0" max = "5" step = "1" snaps = "true"
+                    (ionChange) = "redrawLineGraph(3,unripeSeedConesValue)"
+                    debounce="200" 
+                    >
+                        <ion-label range-left>0</ion-label>
+                        <ion-label range-right>10,000</ion-label>
+                  </ion-range>
+                </ion-item>
+                <p style = "text-align: center"> {{LineGraphSendValues[3]}} </p>
+              </ion-card-content>
+            </ion-card>
+        </div>
+
+        <div *ngIf = "showNumberOfRipeSeedCones">
+            <ion-card>
+                <ion-card-header>
+                    <button ion-button small (tap) = "getInfo($event,1,4)">
+                      info
+                    </button>
+                </ion-card-header>
+              <ion-card-content>
+                <canvas #ripeSeedCones></canvas>
+  
+                <ion-item>
+                    <ion-range 
+                    [(ngModel)] = "ripeSeedConesValue" min = "0" max = "5" step = "1" snaps = "true"
+                    (ionChange) = "redrawLineGraph(4,ripeSeedConesValue)"
+                    debounce="200" 
+                    >
+                        <ion-label range-left>0</ion-label>
+                        <ion-label range-right>10,000</ion-label>
+                  </ion-range>
+                </ion-item>
+                <p style = "text-align: center"> {{LineGraphSendValues[4]}} </p>
+              </ion-card-content>
+            </ion-card>
+        </div>
+
+        <div *ngIf = "showNumberOfDroppedSeedCones">
+            <ion-card>
+                <ion-card-header>
+                    <button ion-button small (tap) = "getInfo($event,1,5)">
+                      info
+                    </button>
+                </ion-card-header>
+              <ion-card-content>
+                <canvas #droppedSeedCones></canvas>
+  
+                <ion-item>
+                    <ion-range 
+                    [(ngModel)] = "droppedSeedConesValue" min = "0" max = "5" step = "1" snaps = "true"
+                    (ionChange) = "redrawLineGraph(5,droppedSeedConesValue)"
+                    debounce="200" 
+                    >
+                        <ion-label range-left>0</ion-label>
+                        <ion-label range-right>10,000</ion-label>
+                  </ion-range>
+                </ion-item>
+                <p style = "text-align: center"> {{LineGraphSendValues[5]}} </p>
+              </ion-card-content>
+            </ion-card>
+        </div>
+
+        <div *ngIf = "showNumberOfBreakingLeafBuds">
+            <ion-card>
+                <ion-card-header>
+                    <button ion-button small (tap) = "getInfo($event,1,6)">
+                      info
+                    </button>
+                </ion-card-header>
+              <ion-card-content>
+                <canvas #breakingLeafBuds></canvas>
+  
+                <ion-item>
+                    <ion-range 
+                    [(ngModel)] = "breakingLeafBudsValue" min = "0" max = "5" step = "1" snaps = "true"
+                    (ionChange) = "redrawLineGraph(6,breakingLeafBudsValue)"
+                    debounce="200" 
+                    >
+                        <ion-label range-left>0</ion-label>
+                        <ion-label range-right>10,000</ion-label>
+                  </ion-range>
+                </ion-item>
+                <p style = "text-align: center"> {{LineGraphSendValues[6]}} </p>
+              </ion-card-content>
+            </ion-card>
+        </div>
+
+        <div *ngIf = "showNumberOfFlowerBuds">
+            <ion-card>
+                <ion-card-header>
+                    <button ion-button small (tap) = "getInfo($event,1,7)">
+                      info
+                    </button>
+                </ion-card-header>
+              <ion-card-content>
+                <canvas #flowerBuds></canvas>
+  
+                <ion-item>
+                    <ion-range 
+                    [(ngModel)] = "flowerBudsValue" min = "0" max = "5" step = "1" snaps = "true"
+                    (ionChange) = "redrawLineGraph(7,flowerBudsValue)"
+                    debounce="200" 
+                    >
+                        <ion-label range-left>0</ion-label>
+                        <ion-label range-right>10,000</ion-label>
+                  </ion-range>
+                </ion-item>
+                <p style = "text-align: center"> {{LineGraphSendValues[7]}} </p>
+              </ion-card-content>
+            </ion-card>
+        </div>
+
+        <div *ngIf = "showNumberOfFruits">
+            <ion-card>
+                <ion-card-header>
+                    <button ion-button small (tap) = "getInfo($event,1,8)">
+                      info
+                    </button>
+                </ion-card-header>
+              <ion-card-content>
+                <canvas #fruits></canvas>
+  
+                <ion-item>
+                    <ion-range 
+                    [(ngModel)] = "fruitsValue" min = "0" max = "5" step = "1" snaps = "true"
+                    (ionChange) = "redrawLineGraph(8,fruitsValue)"
+                    debounce="200" 
+                    >
+                        <ion-label range-left>0</ion-label>
+                        <ion-label range-right>10,000</ion-label>
+                  </ion-range>
+                </ion-item>
+                <p style = "text-align: center"> {{LineGraphSendValues[8]}} </p>
+              </ion-card-content>
+            </ion-card>
+        </div>
+
+        <div *ngIf = "showNumberOfDroppedFruits">
+            <ion-card>
+                <ion-card-header>
+                    <button ion-button small (tap) = "getInfo($event,1,9)">
+                      info
+                    </button>
+                </ion-card-header>
+              <ion-card-content>
+                <canvas #droppedFruits></canvas>
+  
+                <ion-item>
+                    <ion-range 
+                    [(ngModel)] = "droppedFruitsValue" min = "0" max = "5" step = "1" snaps = "true"
+                    (ionChange) = "redrawLineGraph(9,droppedFruitsValue)"
+                    debounce="200" 
+                    >
+                        <ion-label range-left>0</ion-label>
+                        <ion-label range-right>10,000</ion-label>
+                  </ion-range>
+                </ion-item>
+                <p style = "text-align: center"> {{LineGraphSendValues[9]}} </p>
+              </ion-card-content>
+            </ion-card>
+        </div>
+
+
+        <button ion-button (click) = 'collectData();'>Confirm</button> 
+     
+    </ion-content>

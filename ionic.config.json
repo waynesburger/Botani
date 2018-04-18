@@ -1,0 +1,8 @@
+{
+  "name": "botani3",
+  "app_id": "bb0c90b4",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
