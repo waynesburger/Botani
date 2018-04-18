@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { Leaderboard } from '../leaderboard';
 import { UserFactory, user } from '../../../providers/userfactory';
 
@@ -27,7 +27,7 @@ export class GlobalLeaderboard {
    * @param navParams 
    * @param UserFactory 
    */
-  constructor(public navCtrl: NavController, public navParams: NavParams, private UserFactory: UserFactory) 
+  constructor(public navCtrl: NavController, public navParams: NavParams, private UserFactory: UserFactory, public menuCtrl: MenuController) 
   {
     this.user_list = [];
   }
@@ -53,7 +53,7 @@ export class GlobalLeaderboard {
                      }
                     
                      console.log(this.user_list);
-                     this.leaderboard = new Leaderboard(this.navCtrl, this.user_list);
+                     this.leaderboard = new Leaderboard(this.navCtrl, this.user_list, this.menuCtrl);
                      this.users = this.leaderboard.globallyRankedUsers;
                      console.log('ionViewDidLoad GlobalLeaderboard');
                     
