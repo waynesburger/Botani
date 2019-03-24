@@ -1,1 +1,1 @@
-This tab represents the **Map** pf the app
+This tab represents the **Map** of the app
