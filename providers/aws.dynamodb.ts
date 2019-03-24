@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, Logger } from 'aws-amplify';
-import AWS from 'aws-sdk';
+import * as AWS from 'aws-sdk';
 const aws_exports = require('../aws-exports').default;
 
 AWS.config.region = aws_exports.aws_project_region;

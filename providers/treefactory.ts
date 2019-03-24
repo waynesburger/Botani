@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import { Response, Headers, RequestOptions } from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
+//import {Observable} from '@reactivex/rxjs/es6/Observable.js'
 import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';

@@ -9,8 +9,8 @@ import 'rxjs/add/operator/catch';
 import { HttpModule } from '@angular/http';
 import { HttpClientJsonpModule } from '@angular/common/http/src/module';
 import { JSONPBackend } from '@angular/http/src/backends/jsonp_backend';
-import { ToastController } from 'ionic-angular'
-import { Leaderboard } from '../pages/leaderboard/leaderboard';
+import { ToastController } from '@ionic/angular';
+//import { Leaderboard } from '../pages/leaderboard/leaderboard';
 
 /*
 * userfacactory creates a list of "users" from the data received from the php layer. 
@@ -100,7 +100,7 @@ export class UserFactory
            message       : message,
            duration      : 3000
        });
-       notification.present();
+       //notification.present();
     }
 
 
