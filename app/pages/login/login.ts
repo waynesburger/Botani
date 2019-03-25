@@ -4,8 +4,8 @@ import { LoadingController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Auth, Logger } from 'aws-amplify';
 
-import { TabsPage } from '../tabs/tabs';
-import { SignupPage } from '../signup/signup';
+//import { TabsPage } from '../../tabs/tabs.page';
+//import { SignupPage } from '../signup/signup';
 //import { ConfirmSignInPage } from '../confirmSignIn/confirmSignIn';
 import { LoginInfoProvider } from '../../../providers/login-info/login-info';
 
@@ -37,7 +37,8 @@ export class LoginPage {
    * @param saveLogIn 
    */
   constructor(public rout: Router,
-              public loadingCtrl: LoadingController, saveLogIn : LoginInfoProvider,
+              public loadingCtrl: LoadingController,
+              saveLogIn : LoginInfoProvider,
               public menuCtrl: MenuController) {
     this.loginDetails = new LoginDetails(); 
     this.saveLogIn = saveLogIn
@@ -47,13 +48,13 @@ export class LoginPage {
   /**
    * logs the users in
    */
-  login() {
-    let loading = this.loadingCtrl.create({
+  async login() {
+    const loading = await this.loadingCtrl.create({
       spinner: null,
       message: 'login in progress ...',
       translucent: true
     });
-    //loading.present();
+    await loading.present();
 
     let details = this.loginDetails;
     logger.info('login..');
@@ -61,18 +62,18 @@ export class LoginPage {
       .then(user => {
         logger.debug('signed in user', user);
           this.saveLogIn.updateUsername(details.username);
-          this.navCtrl.setRoot(TabsPage);
-       // }
+          this.rout.navigate(['tabspage']);
       })
-      .catch(err => logger.debug('ooops. login issues.', err))
-      .then(() => loading.dismiss());
+      .catch(err => logger.debug('ooops. login issues.', err));
+
+    const {role, data} = await loading.onDidDismiss();
   }
 
   /**
    * goes to the signup page
    */
   signup() {
-    this.navCtrl.push(SignupPage);
+    this.rout.navigate(['sign-up']);
   }
 
 }
