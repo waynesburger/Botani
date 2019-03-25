@@ -6,7 +6,6 @@ import { TreeFactory, sapling } from '../../providers/treefactory';
 import { Graphs } from '../pages/dataCollection/dataCollection';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
-//import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 declare let google: any;
 
@@ -380,14 +379,13 @@ export class BotaniMap {
     }
     
     /**
-     * opens the graph page witht the propoer parameters
+     * opens the graph page with the proper parameters
      * @param treeindex 
      */
     collectData(treeindex: number) {
         let tosend = this.tree_list[treeindex].collectData();
         console.log(this.tree_list[treeindex]);
-        //this.navCtrl.push(Graphs, { params: tosend });
-        this.rout.navigate(['../datacolle']);
+        this.rout.navigate(['graphs', {params: tosend}]);
     }
 
   /**
@@ -499,20 +497,20 @@ export class BotaniMap {
      * lets users know whether or not they can collect data on a tree
      * @param num 
      */
-    alertMessage(num) {
+    async alertMessage(num) {
 
         let titleStr = (num === 1) ? 'New Tree Available' : 'Can\'t Collect Data';
         let subStr = (num === 1)
             ? 'A new Tree has been discovered, hurry and make some observations on it!'
             : 'You aren\'t within the range of any of the trees on the map';
 
-        let alert = this.alertCtrl.create({
+        const alert = await this.alertCtrl.create({
             header: titleStr,
             subHeader: subStr,
             buttons: ['OK']
         });
 
-        //alert.present();
+        alert.present();
     }
 
 }
