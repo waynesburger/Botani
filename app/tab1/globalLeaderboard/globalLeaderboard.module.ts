@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
 import { GlobalLeaderboard } from './globalLeaderboard';
 
 @NgModule({
@@ -7,7 +8,9 @@ import { GlobalLeaderboard } from './globalLeaderboard';
     GlobalLeaderboard,
   ],
   imports: [
-    IonicPageModule.forChild(GlobalLeaderboard),
+    IonicModule, RouterModule.forChild([
+      {path: '', component: GlobalLeaderboard}
+    ])
   ],
 })
 export class GlobalLeaderboardPageModule {}
