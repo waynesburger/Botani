@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-
-import { NavController, LoadingController, MenuController } from '@ionic/angular';
+import { LoadingController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Auth, Logger } from 'aws-amplify';
-
 import { LoginPage } from '../login/login';
 import { ConfirmSignUpPage } from '../confirmSignUp/confirmSignUp';
-
 import {Http} from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -35,7 +32,7 @@ export class SignupPage {
    * @param navCtrl 
    * @param loadingCtrl 
    */
-  constructor(public navCtrl: NavController,
+  constructor(public rout: Router,
               public loadingCtrl: LoadingController,
               public menuCtrl: MenuController) {
    this.userDetails = new UserDetails();
@@ -46,12 +43,12 @@ export class SignupPage {
   /**
    * lets the user sign up for the app. Authentication happens here
    */
-  signup() {
+  async signup() {
 
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+    const loading = await this.loadingCtrl.create({
+      message: 'well get you signed in right away ...'
     });
-    loading.present();
+    await loading.present();
 
     let details = this.userDetails;
     this.error = null;
@@ -61,17 +58,19 @@ export class SignupPage {
         let headers 	: any		= new HttpHeaders({ 'Content-Type':'application/json' }),
           options 	: any		=  {'username' : details.username},
           url       : any      	= "http://botaniclash.us-west-2.elasticbeanstalk.com/insertUsername.php"; 
-        this.navCtrl.push(ConfirmSignUpPage, { username: details.username });
+        this.rout.navigate(['conf-sign', { username: details.username}]);
       })
-      .catch(err => { this.error = err; })
-      .then(() => loading.dismiss());
+      .catch(err => { this.error = err; });
+      //.then(() => loading.dismiss());
+    
+    const {role, data} = await loading.onDidDismiss();
   }
 
   /**
    * logs the user in
    */
   login() {
-    this.navCtrl.push(LoginPage);
+    this.rout.navigate(['login-page'])
   }
 
 }
