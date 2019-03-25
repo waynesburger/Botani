@@ -11,7 +11,7 @@ import { PopoverPage } from './dataCollection';
   ],
   imports: [
     IonicModule, RouterModule.forChild([
-      {path: 'graphs', component: Graphs},
+      {path: '', component: Graphs},
        {path: 'popover-page', component: PopoverPage}
     ])
   ],

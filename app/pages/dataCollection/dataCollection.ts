@@ -329,16 +329,16 @@ let username;
   /**
    * presents the user with their points
    */
-  presentPoints()
+  async presentPoints()
   {
-    let alert = this.alert.create(
+    let alert = await this.alert.create(
       {
         header: "Data sent!",
         subHeader : `You earned ${this.points} drops`,
         buttons : ["Continue"]
       }
     );
-    //alert.present();
+    alert.present();
   }
 
   ionViewDidLoad(){
