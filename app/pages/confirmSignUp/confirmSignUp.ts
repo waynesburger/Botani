@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-
-import { NavController, NavParams } from 'ionic-angular';
+import { NavParams } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { Auth, Logger } from 'aws-amplify';
-
-import { LoginPage } from '../login/login';
+//import { LoginPage } from '../login/login';
 
 const logger = new Logger('ConfirmSignUp');
 
@@ -21,7 +20,7 @@ export class ConfirmSignUpPage {
  * @param navCtrl 
  * @param navParams 
  */
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public rout: Router, public navParams: NavParams) {
     this.username = navParams.get('username');
   }
 
@@ -30,7 +29,7 @@ export class ConfirmSignUpPage {
    */
   confirm() {
     Auth.confirmSignUp(this.username, this.code)
-      .then(() => this.navCtrl.push(LoginPage))
+      .then(() => this.rout.navigate(['login-page']))
       .catch(err => logger.debug('confirm error', err));
   }
 
@@ -39,7 +38,7 @@ export class ConfirmSignUpPage {
    */
   resendCode() {
     Auth.resendSignUp(this.username)
-      .then(() => logger.debug('sent'))
-      .catch(err => logger.debug('send code error', err));
+      .then(() => logger.debug('code was sent'))
+      .catch(err => logger.debug('code was not sent', err));
   }
 }

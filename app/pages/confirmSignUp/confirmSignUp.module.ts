@@ -1,13 +1,19 @@
 import { NgModule } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
 import { ConfirmSignUpPage } from './confirmSignUp';
+import { LoginPage } from '../login/login';
 
 @NgModule({
   declarations: [
     ConfirmSignUpPage,
+    LoginPage
   ],
   imports: [
-    IonicPageModule.forChild(ConfirmSignUpPage),
+    IonicModule, RouterModule.forChild([
+       {path:'', component: ConfirmSignUpPage},
+       {path:'login-page', component: LoginPage}
+    ])
   ],
 })
 export class ConfirmSignUpPageModule {}
