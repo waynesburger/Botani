@@ -12,6 +12,7 @@ const logger = new Logger('DynamoDB');
 export class DynamoDB {
 
   constructor() {
+    
   }
 
   getDocumentClient() {

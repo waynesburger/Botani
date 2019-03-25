@@ -94,13 +94,13 @@ export class UserFactory
     * @param message 	{String} 			Message to be displayed in the notification
     * @return {None}
     */
-    sendNotification(message : string)  : void
+    async sendNotification(message : string)  //: void
     {
-       let notification = this.toastCtrl.create({
+       const notification = await this.toastCtrl.create({
            message       : message,
            duration      : 3000
        });
-       //notification.present();
+       notification.present();
     }
 
 
